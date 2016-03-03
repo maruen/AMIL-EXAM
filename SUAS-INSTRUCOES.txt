@@ -1,1 +1,2 @@
 Para visualizar os rankings basta executar o comando ./run.sh <arquivo-log-1> <arquivo-log-2> <arquivo-log-n>
+Para visualizar os rankings com o item 1 e 3 do bônus basta executar o comando ./runWithBonus.sh <arquivo-log-1> <arquivo-log-2> <arquivo-log-n>
