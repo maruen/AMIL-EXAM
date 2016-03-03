@@ -5,9 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 import pojo.Killing;
 import pojo.Match;
@@ -74,7 +76,8 @@ public class Solution {
      
         HashMap<String,Integer> killings                 = new HashMap<String,Integer>();
         HashMap<String,Integer> deaths                   = new HashMap<String,Integer>();
-        HashMap<String,Integer> preferredWeaponByPlayer   = new HashMap<String,Integer>();
+        HashMap<String,Integer> preferredWeaponByPlayer  = new HashMap<String,Integer>();
+        Set<String>             playersThatDied          = new HashSet<String>();
         
         
         StringBuffer result = new StringBuffer();
@@ -84,11 +87,16 @@ public class Solution {
             result.append("Match: ").append(match.getMatchName()).append("\n");
             
             for (Killing killing: match.getKillings()) {
+                
                 if ( killing.getPlayerThatKills().equals("<WORLD>") ) {
+                
                     Integer numberOfDeaths = deaths.getOrDefault(killing.getPlayerThatDies(), 0);
                     numberOfDeaths++;
                     deaths.put(killing.getPlayerThatDies(), numberOfDeaths);
+                    playersThatDied.add(killing.getPlayerThatDies());
+                
                 } else {
+                    
                     Integer numberOfKillings = killings.getOrDefault(killing.getPlayerThatKills(), 0);
                     numberOfKillings++;
                     killings.put(killing.getPlayerThatKills(), numberOfKillings);
@@ -121,31 +129,46 @@ public class Solution {
             
             killings.clear();
             deaths.clear();
-        }
-        
-        Integer preferedWeaponByPlayerCount = 0;
-        String  winner                      = null;
-        String  preferedWeapon              = null;
-        for (Map.Entry<String, Integer> entry : preferredWeaponByPlayer.entrySet()) {
-       
-            if (entry.getValue() > preferedWeaponByPlayerCount ) {
-                preferedWeaponByPlayerCount = entry.getValue();
-                winner = entry.getKey().split("-")[0];
-                preferedWeapon = entry.getKey().split("-")[1];
+            
+            Integer preferedWeaponByPlayerCount = 0;
+            String  winner                      = null;
+            String  preferedWeapon              = null;
+            for (Map.Entry<String, Integer> entry : preferredWeaponByPlayer.entrySet()) {
+           
+                if (entry.getValue() > preferedWeaponByPlayerCount ) {
+                    preferedWeaponByPlayerCount = entry.getValue();
+                    winner = entry.getKey().split("-")[0];
+                    preferedWeapon = entry.getKey().split("-")[1];
+                }
+            
             }
-        
-        }
-        
-        
-        if (returnBonusQuestions == Boolean.TRUE) {
-        
-            result.append("Bonus Questions\n")
-                  .append("The winner was: ")
-                  .append(winner)
-                  .append(" and the weapon that more killed was ")
-                  .append(preferedWeapon);
+            
+            
+            if (returnBonusQuestions == Boolean.TRUE) {
+            
+                result.append("Bonus Questions\n")
+                      .append("The winner was: ")
+                      .append(winner)
+                      .append(" and the weapon that more killed was ")
+                      .append(preferedWeapon)
+                      .append("\n");
+                
+                
+                if (!playersThatDied.contains(winner)) {
+                    result.append("The player ")
+                          .append(winner)
+                          .append(" has an award for not beeing killed in a match")
+                          .append("\n");
+                }
+               
+                
+                
+            }
+            
             
         }
+        
+       
         
         return result.toString();
    

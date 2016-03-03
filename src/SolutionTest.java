@@ -64,16 +64,44 @@ public class SolutionTest extends TestCase {
         "Nickname Nick has suffered 1 deaths"                           + "\n" + 
         "Nickname Roman has suffered 1 deaths"                          + "\n" + 
         "Nickname Scott has suffered 1 deaths"                          + "\n" + 
+        "Bonus Questions"                                               + "\n" + 
+        "The winner was: Scott and the weapon that more killed was M17" + "\n" + 
         "Match: 2"                                                      + "\n" + 
         "Nickname John has done 1 killings"                             + "\n" + 
         "Nickname karl has suffered 1 deaths"                           + "\n" + 
         "Bonus Questions"                                               + "\n" + 
-        "The winner was: Scott and the weapon that more killed was M17";
+        "The winner was: Scott and the weapon that more killed was M17" + "\n";
         
         
          String actual = Solution.getRankings("input3.log",true);
          assertEquals( expected, actual);
     }
+    
+    
+    
+    public void testInput4() throws Exception {
+        
+        String expected = "Rankings"                                    + "\n" + 
+       "Match: 1"                                                       + "\n" + 
+       "Nickname Andrew has done 1 killings"                            + "\n" + 
+       "Nickname Roman has done 1 killings"                             + "\n" + 
+       "Nickname Scott has done 3 killings"                             + "\n" + 
+       "Nickname Nick has suffered 1 deaths"                            + "\n" + 
+       "Nickname Roman has suffered 1 deaths"                           + "\n" +
+       "Bonus Questions"                                                + "\n" + 
+       "The winner was: Scott and the weapon that more killed was M17"  + "\n" + 
+       "The player Scott has an award for not beeing killed in a match" + "\n" + 
+       "Match: 2"                                                       + "\n" + 
+       "Nickname John has done 1 killings"                              + "\n" + 
+       "Nickname karl has suffered 1 deaths"                            + "\n" + 
+       "Bonus Questions"                                                + "\n" + 
+       "The winner was: Scott and the weapon that more killed was M17"  + "\n" +
+       "The player Scott has an award for not beeing killed in a match" + "\n";
+       
+       
+        String actual = Solution.getRankings("input4.log",true);
+        assertEquals( expected, actual);
+   }
     
     
     
